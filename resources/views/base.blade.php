@@ -58,6 +58,12 @@
 					<li><a href="{{ route('user.create') }}">Tambah</a></li>
 				</ul>
             </li>
+			<li>
+                <a href="{{ route('file.index') }}">File</a>
+				<ul class="main-nav">
+					<li><a href="{{ route('file.create') }}">Tambah</a></li>
+				</ul>
+            </li>
         </ul>
     </aside>
 
@@ -74,7 +80,7 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
 <!-- Custom JavaScript -->
-<script src="/assets/js/custom.js"></script>
+<script src="/custom.js"></script>
 </body>
 
 </html>
