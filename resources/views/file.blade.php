@@ -26,7 +26,7 @@
                 @foreach($data as $datas)
                     <tr>
                         <td>{{ $no++ }}</td>
-                        <td>{{ $datas->name }}</td>
+                        <td>{{ $datas->nama }}</td>
                         <td><img src="{{ url('uploads/file/'.$datas->file) }}" style="width: 150px; height: 150px;"> </td>
                         <td>
                             <form action="{{ route('file.destroy', $datas->id) }}" method="post">

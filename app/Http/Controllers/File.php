@@ -37,7 +37,7 @@ class File extends Controller
     public function store(Request $request)
     {
         $data = new ModelFile();
-        $data->name = $request->input('name');
+        $data->nama = $request->input('nama');
         $file = $request->file('file');
         $ext = $file->getClientOriginalExtension();
         $newName = rand(100000,1001238912).".".$ext;
@@ -66,7 +66,8 @@ class File extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = ModelFile::findOrFail($id);
+        return view('file_edit',compact('data'));
     }
 
     /**
@@ -78,7 +79,20 @@ class File extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = ModelFile::findOrFail($id);
+        $data->nama = $request->input('nama');
+        if (empty($request->file('file'))){
+            $data->file = $data->file;
+        }else{
+            unlink('uploads/file/'.$data->file); //menghapus file lama
+            $file = $request->file('file');
+            $ext = $file->getClientOriginalExtension();
+            $newName = rand(100000,1001238912).".".$ext;
+            $file->move('uploads/file',$newName);
+            $data->file = $newName;
+        }
+        $data->save();
+        return redirect()->route('file.index')->with('alert-success','Data berhasil diubah!');
     }
 
     /**
@@ -89,6 +103,10 @@ class File extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = ModelFile::findOrFail($id);
+        if($data->delete()){
+			unlink('uploads/file/'.$data->file); //menghapus file lama
+		}
+        return redirect()->route('file.index')->with('alert-success','Data berhasil dihapus!');
     }
 }
